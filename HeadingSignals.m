@@ -7,11 +7,10 @@ classdef HeadingSignals < matlab.System
 
     % Public, tunable properties
     properties
-
+        
     end
 
     properties(DiscreteState)
-
     end
 
     % Pre-computed constants
@@ -30,7 +29,7 @@ classdef HeadingSignals < matlab.System
             time = 1;
 
             % Unit Input
-            stepInput = ones(1, length(time))
+            step = ones(1, length(time))
         end
 
         function resetImpl(obj)
