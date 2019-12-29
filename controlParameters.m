@@ -16,6 +16,8 @@ else
     disp("RESET")
 end
 
+%% Frequency Analysis
+bode(compassTransferFunctionNumerator, compassTransferFunctionDenominator)
 
 
 

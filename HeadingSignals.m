@@ -15,6 +15,8 @@ classdef HeadingSignals < matlab.System
 
     % Pre-computed constants
     properties(Access = private)
+        
+        
 
     end
 
@@ -22,18 +24,26 @@ classdef HeadingSignals < matlab.System
         function setupImpl(obj)
             % Perform one-time calculations, such as computing constants
         end
-
-        function step = stepImpl(obj)
-            % Implement algorithm. Calculate y as a function of input u and
-            % discrete states.
-            time = 1;
-
-            % Unit Input
-            step = ones(1, length(time))
+        
+        function [step, ramp] = stepImpl(obj, time)
+            step = generateStep(obj, time);
+            ramp = generateRamp(obj, time);
         end
 
         function resetImpl(obj)
             % Initialize / reset discrete-state properties
+        end
+    end
+    
+    methods(Access = private)
+        function step = generateStep(obj, time)
+            % Unit step Input
+            step = ones(1, length(time));
+        end
+        
+        function ramp = generateRamp(obj, time)
+            % Ramp input
+            ramp = time;
         end
     end
 end
