@@ -25,9 +25,10 @@ classdef HeadingSignals < matlab.System
             % Perform one-time calculations, such as computing constants
         end
         
-        function [step, ramp] = stepImpl(obj, time)
+        function [step, ramp, sine] = stepImpl(obj, time)
             step = generateStep(obj, time);
             ramp = generateRamp(obj, time);
+            sine = generateSine(obj, time);
         end
 
         function resetImpl(obj)
@@ -44,6 +45,11 @@ classdef HeadingSignals < matlab.System
         function ramp = generateRamp(obj, time)
             % Ramp input
             ramp = time;
+        end
+        
+        function sine = generateSine(obj, time)
+            % Ramp input
+            sine = sin(time);
         end
     end
 end
