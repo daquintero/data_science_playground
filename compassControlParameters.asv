@@ -34,34 +34,26 @@ rawMagnitudeDBSecondOrder = [transpose(frequenciesSecondOrder); iteratorMagnitud
 
 % All Filtered dB Magnitude points
 j = 1;
-filteredMagnitudeDBSecondOrder(size(rawMagnitudeDBSecondOrder)) = 0;
-filteredPhaseDBSecondOrder(size(rawMagnitudeDBSecondOrder)) = 0;
-for magnitudeValue = rawMagnitudeDBSecondOrder(2,:)
-    if (magnitudeValue >= -3) && (magnitudeValue <= 3)
-        filteredMagnitudeDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
-        filteredMagnitudeDBSecondOrder(2,j) = rawMagnitudeDBSecondOrder(2,j);
-        filteredPhaseDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
-        filteredPhaseDBSecondOrder(2,j) = phaseSecondOrder(j);
-    end 
-    j = j + 1;
+filteredMagnitudeDBSecondOrder(size(iteratorMagnitudeDBSecondOrder)) = 0;
+for val = rawMagnitudeDBSecondOrder(1,:)
+    if (val > -3) || (val < 3)
+        filteredMagnitudeDBSecondOrder(j) = rawMagnitudeDBSecondOrder(1,j)
+    end
+    j = i + 1;
 end
-filteredPhaseDBSecondOrder
 
-%%
+
 figure
-hold on
 plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
+hold on
 yline(-3);
 yline(3);
-plot(filteredMagnitudeDBSecondOrder(1,:), filteredMagnitudeDBSecondOrder(2,:), '.')
 set(gca, 'XScale', 'log')
 hold off
 
 figure
-hold on
 plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
-plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
 set(gca, 'XScale', 'log')
-hold off
+
 
 
