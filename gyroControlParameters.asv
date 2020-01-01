@@ -7,18 +7,16 @@ firstOrderNumerator = sensitivity;
 firstOrderDenominator = [timeConstant 1]
 firstOrderSystem = tf(firstOrderNumerator, firstOrderDenominator);
 firstOrderStep = step(firstOrderSystem);
-[magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = bode(firstOrderSystem);
+[magnitude, phase, frequencies] = bode(firstOrderSystem);
 figure
 bode(firstOrderSystem)
 
 i = 0;
-magnitudeDBFirstOrder(size(magnitudeFirstOrder(:,:))) = 0;
-for val = magnitudeFirstOrder(:,:)
-    i = i + 1;
-    magnitudeDBFirstOrder(i) = -20* log10(1/val);
+magnitudeDB(size(magnitude(:,:))) = 0;
+for val = magnitude(:,:)
+i = i + 1;
+magnitudeDB(i) = -10* log10(1/val);
 end
 
 figure
-plot(frequenciesFirstOrder, magnitudeDBFirstOrder);
 set(gca, 'XScale', 'log')
-

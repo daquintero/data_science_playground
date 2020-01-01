@@ -17,7 +17,22 @@ else
 end
 
 %% Frequency Analysis
-bode(compassTransferFunctionNumerator, compassTransferFunctionDenominator)
+figure
+secondOrderSystem = tf(compassTransferFunctionNumerator, compassTransferFunctionDenominator)
+[magnitudeSecondOrder, phaseSecondOrder, frequenciesSecondOrder] = bode(secondOrderSystem);
+figure
+bode(secondOrderSystem)
+
+i = 0;
+magnitudeDBSecondOrder(size(magnitudeSecondOrder(:,:))) = 0;
+for val = magnitudeSecondOrder(:,:)
+    i = i + 1;
+    magnitudeDBSecondOrder(i) = -20* log10(1/val);
+end
+
+figure
+plot(frequenciesSecondOrder, magnitudeDBSecondOrder);
+set(gca, 'XScale', 'log')
 
 
 
