@@ -36,16 +36,33 @@ rawMagnitudeDBSecondOrder = [transpose(frequenciesSecondOrder); iteratorMagnitud
 j = 1;
 filteredMagnitudeDBSecondOrder(size(rawMagnitudeDBSecondOrder)) = 0;
 filteredPhaseDBSecondOrder(size(rawMagnitudeDBSecondOrder)) = 0;
+badFilteredMagnitudeDBSecondOrder(size(rawMagnitudeDBSecondOrder)) = 0;
+badFilteredPhaseDBSecondOrder(size(rawMagnitudeDBSecondOrder)) = 0;
 for magnitudeValue = rawMagnitudeDBSecondOrder(2,:)
     if (magnitudeValue >= -3) && (magnitudeValue <= 3)
-        filteredMagnitudeDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
-        filteredMagnitudeDBSecondOrder(2,j) = rawMagnitudeDBSecondOrder(2,j);
-        filteredPhaseDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
-        filteredPhaseDBSecondOrder(2,j) = phaseSecondOrder(j);
+        if j > 1
+            if abs(rawMagnitudeDBSecondOrder(1,j) - rawMagnitudeDBSecondOrder(1,j-1)) <= 0.15
+                filteredMagnitudeDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
+                filteredMagnitudeDBSecondOrder(2,j) = rawMagnitudeDBSecondOrder(2,j);
+                filteredPhaseDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
+                filteredPhaseDBSecondOrder(2,j) = phaseSecondOrder(j);
+            else
+                badFilteredMagnitudeDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
+                badFilteredMagnitudeDBSecondOrder(2,j) = rawMagnitudeDBSecondOrder(2,j);
+                badFilteredPhaseDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
+                badFilteredPhaseDBSecondOrder(2,j) = phaseSecondOrder(j);
+            end
+        else
+            filteredMagnitudeDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
+            filteredMagnitudeDBSecondOrder(2,j) = rawMagnitudeDBSecondOrder(2,j);
+            filteredPhaseDBSecondOrder(1,j) = rawMagnitudeDBSecondOrder(1,j);
+            filteredPhaseDBSecondOrder(2,j) = phaseSecondOrder(j);
+        end
+        
     end 
     j = j + 1;
 end
-filteredPhaseDBSecondOrder
+% filteredMagnitudeDBSecondOrder
 
 %%
 figure
@@ -53,15 +70,33 @@ hold on
 plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
 yline(-3);
 yline(3);
-plot(filteredMagnitudeDBSecondOrder(1,:), filteredMagnitudeDBSecondOrder(2,:), '.')
+plot(filteredMagnitudeDBSecondOrder(1,:), ...
+    filteredMagnitudeDBSecondOrder(2,:), '.b')
+plot(badFilteredMagnitudeDBSecondOrder(1,:), ...
+    badFilteredMagnitudeDBSecondOrder(2,:), ...
+    '.r')
 set(gca, 'XScale', 'log')
 hold off
 
 figure
 hold on
-plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
-plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
+plot(frequenciesSecondOrder, ...
+    phaseSecondOrder(:,:));
+plot(filteredPhaseDBSecondOrder(1,:), ...
+    filteredPhaseDBSecondOrder(2,:), ...
+    '.b')
+plot(badFilteredPhaseDBSecondOrder(1,:), ...
+    badFilteredPhaseDBSecondOrder(2,:), ...
+    '.r')
 set(gca, 'XScale', 'log')
 hold off
+
+disp("The minimum and maximum safe operational frequency of the sensor is" ...
+    + filteredPhaseDBSecondOrder(1,1) + "and")
+
+compassFilterGain = 1;
+compassTimeConstant = 2.56; % Rad
+compassFilterNumerator = compassFilterGain;
+compassFilterDenominator = [compassTimeConstant 1];
 
 

@@ -11,9 +11,7 @@ firstOrderDenominator = [timeConstant 1]
 firstOrderSystem = tf(firstOrderNumerator, firstOrderDenominator);
 firstOrderStep = step(firstOrderSystem);
 [magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = bode(firstOrderSystem);
-figure
-bode(firstOrderSystem);
-% figure % Figure nly to check
+% figure % Figure only to check
 % bode(firstOrderSystem);
 
 % All db Magnitude points
