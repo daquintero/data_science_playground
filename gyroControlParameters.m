@@ -13,7 +13,7 @@ firstOrderStep = step(firstOrderSystem);
 [magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = bode(firstOrderSystem);
 figure % Figure only to check
 step(firstOrderSystem);
-% bode(firstOrderSystem);
+%bode(firstOrderSystem);
 
 % All db Magnitude points
 i = 1;
@@ -37,14 +37,13 @@ for magnitudeValue = rawMagnitudeDBFirstOrder(2,:)
     end 
     j = j + 1;
 end
-filteredPhaseDBFirstOrder
 
-%%
+%% Plots
 figure
 hold on
 plot(frequenciesFirstOrder, iteratorMagnitudeDBFirstOrder);
-yline(-3);
-yline(3);
+%yline(-3);
+%yline(3);
 plot(filteredMagnitudeDBFirstOrder(1,:), filteredMagnitudeDBFirstOrder(2,:), '.')
 set(gca, 'XScale', 'log')
 hold off
@@ -56,4 +55,13 @@ plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
 set(gca, 'XScale', 'log')
 hold off
 
+%% Gyro Filter Denominator
+gyroCutoffFrequency = compassTimeConstant;
+gyroTimeConstant = compassTimeConstant;
+
+gyroFilterNumerator = [1 0];
+gyroFilterDenominator = [1 1/gyroTimeConstant];
+gyroFilterTransferFunction = tf(gyroFilterNumerator, gyroFilterDenominator);
+% figure
+% bode(gyroFilterTransferFunction)
 

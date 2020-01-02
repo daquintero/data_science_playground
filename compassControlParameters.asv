@@ -62,7 +62,7 @@ for magnitudeValue = rawMagnitudeDBSecondOrder(2,:)
     end 
     j = j + 1;
 end
-filteredMagnitudeDBSecondOrder
+% filteredMagnitudeDBSecondOrder
 
 %%
 figure
@@ -95,12 +95,10 @@ disp("The minimum and maximum safe operational frequency of the sensor is" ...
     + filteredPhaseDBSecondOrder(1,1) + "and")
 %%
 compassFilterGain = 1;
-compassTimeConstant = 1/2.6509; % Rad
+compassTimeConstant = 2.56; % Rad
 compassFilterNumerator = compassFilterGain;
-compassFilterDenominator = [compassTimeConstant 1];
+compassFilterDenominator = [compassTimeConst 1];
 compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
-% figure
-% bode(compassFilterTransferFunction)
-% nyquist(compassFilterTransferFunction)
+bode(compassFilterTransferFunction)
 
 
