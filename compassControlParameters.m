@@ -65,12 +65,6 @@ for magnitudeValue = rawMagnitudeDBSecondOrder(2,:)
     j = j + 1;
 end
 
-k = 1; % Slope iterator
-for slopeSecondOrder3dBLimit = maximumSlopeSecondOrder3dBLimit
-    
-    k = k + 1;
-end
-
 [rowMaxFilteredMagnitudeDBSecondOrder, ...
     colMaxFilteredMagnitudeDBSecondOrder] = find(...
     filteredMagnitudeDBSecondOrder == max(filteredMagnitudeDBSecondOrder(1, :)));

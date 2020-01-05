@@ -3,6 +3,11 @@ run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
 testInput = "step";
 
+configurationParamtersTable = table(maxMagnitudeFilteredMagnitudeDBSecondOrder, ...
+    maxFrequencyFilteredMagnitudeDBSecondOrder, compassTimeConstant, ...
+    gyroCutoffFrequency, gyroTimeConstant);
+writetable(configurationParamtersTable ,'analytics/' + testInput + 'Configuration.csv');
+
 %% SIMULATION
 simulation = sim('fullSystem','SimulationMode','normal');
 % Get results
