@@ -11,8 +11,8 @@ firstOrderDenominator = [timeConstant 1];
 firstOrderSystem = tf(firstOrderNumerator, firstOrderDenominator);
 firstOrderStep = step(firstOrderSystem);
 [magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = bode(firstOrderSystem);
-figure % Figure only to check
-step(firstOrderSystem);
+% figure % Figure only to check
+% step(firstOrderSystem);
 %bode(firstOrderSystem);
 
 % All db Magnitude points
@@ -39,21 +39,21 @@ for magnitudeValue = rawMagnitudeDBFirstOrder(2,:)
 end
 
 %% Plots
-figure
-hold on
-plot(frequenciesFirstOrder, iteratorMagnitudeDBFirstOrder);
-%yline(-3);
-%yline(3);
-plot(filteredMagnitudeDBFirstOrder(1,:), filteredMagnitudeDBFirstOrder(2,:), '.')
-set(gca, 'XScale', 'log')
-hold off
-
-figure
-hold on
-plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
-plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
-set(gca, 'XScale', 'log')
-hold off
+% figure
+% hold on
+% plot(frequenciesFirstOrder, iteratorMagnitudeDBFirstOrder);
+% %yline(-3);
+% %yline(3);
+% plot(filteredMagnitudeDBFirstOrder(1,:), filteredMagnitudeDBFirstOrder(2,:), '.')
+% set(gca, 'XScale', 'log')
+% hold off
+% 
+% figure
+% hold on
+% plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
+% plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
+% set(gca, 'XScale', 'log')
+% hold off
 
 %% Gyro Filter Denominator
 gyroCutoffFrequency = compassTimeConstant;

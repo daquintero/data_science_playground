@@ -1,7 +1,7 @@
 %% INITIALIZATION
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
-testInput = "step";
+testInput = "ramp";
 
 configurationParamtersTable = table(maxMagnitudeFilteredMagnitudeDBSecondOrder, ...
     maxFrequencyFilteredMagnitudeDBSecondOrder, compassTimeConstant, ...
@@ -33,6 +33,7 @@ figure
 plot(time, compassSystem, time, compassFilter, time, fullSystem,...
      time, gyroFilter, time, gyroSystem, time, input)
 legend(signalsNamesOrdered)
+savefig("analytics/" + testInput + 'Fig.fig')
 % meanInput = mean(input);
 % meanCompassSystem = mean(compassSystem);
 % meanCompassFilter = mean(compassFilter);
