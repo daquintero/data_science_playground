@@ -10,20 +10,16 @@ assignin('base','simulationData',simulationData);
 
 allData = simulationData.signals.values(:, :);
 time = simulationData.time;
-signalsNamesOrdered = ["compassSystem", "compassFilter",...
-    "fullSystem", "gyroFilter", "gyroSystem", "input"].';
+signalsNamesOrdered = ['compassSystem', 'compassFilter',...
+    ].'
 compassSystem = simulationData.signals.values(:, 1);
 compassFilter = simulationData.signals.values(:, 2);
 fullSystem = simulationData.signals.values(:, 3);
-gyroFilter = simulationData.signals.values(:, 4);
-gyroSystem = simulationData.signals.values(:, 5);
+gyroSystem = simulationData.signals.values(:, 4);
+gyroFilter = simulationData.signals.values(:, 5);
 input = simulationData.signals.values(:, 6);
 
-%% Plot
-figure
-plot(time, compassSystem, time, compassFilter, time, fullSystem,...
-     time, gyroFilter, time, gyroSystem, time, input)
-legend(signalsNamesOrdered)
+
 % meanInput = mean(input);
 % meanCompassSystem = mean(compassSystem);
 % meanCompassFilter = mean(compassFilter);
@@ -44,8 +40,11 @@ thirdMomentSignals = moment(allData(:, :), 3).';
 fourthMomentSignals = moment(allData(:, :), 4).';
 skewnessSignals = skewness(allData(:, :)).';
 
-%% Display Analytics
-analyticsTable = table(signalsNamesOrdered, maxSignals, minSignals, meanSignals,...
+% allAnalyticalResults = [maxSignals; minSignals; meanSignals;...
+%     standardDeviationSignals; varianceSignals; kurtosisSignals;...
+%     firstMomentSignals; secondMomentSignals; ]
+
+table(maxSignals, minSignals, meanSignals, ...
     standardDeviationSignals, varianceSignals, kurtosisSignals,...
     skewnessSignals, firstMomentSignals, secondMomentSignals,...
     thirdMomentSignals, fourthMomentSignals)
