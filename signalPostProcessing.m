@@ -1,6 +1,7 @@
 %% INITIALIZATION
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
+testInput = "step";
 
 %% SIMULATION
 simulation = sim('fullSystem','SimulationMode','normal');
@@ -18,6 +19,9 @@ fullSystem = simulationData.signals.values(:, 3);
 gyroFilter = simulationData.signals.values(:, 4);
 gyroSystem = simulationData.signals.values(:, 5);
 input = simulationData.signals.values(:, 6);
+
+rawDataTable = table(time, compassSystem, compassFilter, fullSystem, gyroFilter, gyroSystem, input);
+writetable(rawDataTable ,'analytics/' + testInput + 'Raw.csv');
 
 %% Plot
 figure
@@ -49,7 +53,7 @@ analyticsTable = table(signalsNamesOrdered, maxSignals, minSignals, meanSignals,
     standardDeviationSignals, varianceSignals, kurtosisSignals,...
     skewnessSignals, firstMomentSignals, secondMomentSignals,...
     thirdMomentSignals, fourthMomentSignals)
-
+writetable(analyticsTable ,'analytics/' + testInput + 'Analytics.csv');
 %% Spectral Kurtuosis
 % i = 1;
 % for signalsAmount = 1:6
