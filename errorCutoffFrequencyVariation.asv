@@ -1,0 +1,39 @@
+% This code models the variation of cutoff frequencies and the respective
+% steady state input response (True Heading)
+
+% Create standard model parameters
+run("./compassControlParameters.m");
+run("./gyroControlParameters.m");
+
+% Vary the cutoff frequencies over the attenuation range of the gyroFiler.
+varyingCutoffFrequencies = logspace(-1, 4); % 10 ^ -1 to 10 ^ -4
+
+
+% Compass Constant Parameters
+compassFilterGain = 1;
+
+% Iterating Parameters and Simulations
+for p = varyingCutoffFrequencies
+    % Compass Filter Variation
+    compassTimeConstant = 1/varyingCutoffFrequencies(p); % Rad
+    compassFilterNumerator = compassFilterGain;
+    compassFilterDenominator = [compassTimeConstant 1];
+    compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
+    
+    % Gyro Filter Variation
+    gyroTimeConstant = compassTimeConstant;
+    gyroFilterNumerator = [1 0];
+    gyroFilterDenominator = [1 1/gyroTimeConstant];
+    gyroFilterTransferFunction = tf(gyroFilterNumerator, gyroFilterDenominator);
+    
+    configurationParamtersTable = table(maxMagnitudeFilteredMagnitudeDBSecondOrder, ...
+    maxFrequencyFilteredMagnitudeDBSecondOrder, compassTimeConstant, ...
+    gyroCutoffFrequency, gyroTimeConstant);
+    writetable(configurationParamtersTable ,'analytics/' + compassTimeConstant + 'Configuration.csv');
+    
+    
+    
+    
+    
+    
+end
