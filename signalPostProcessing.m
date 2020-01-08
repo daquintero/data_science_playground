@@ -1,6 +1,8 @@
 %% INITIALIZATION
 run("./compassControlParameters.m");
+run("./idealCompassFilterParameters.m");
 run("./gyroControlParameters.m");
+run("./idealGyroFilterParameters.m");
 testInput = "ramp";
 
 configurationParamtersTable = table(maxMagnitudeFilteredMagnitudeDBSecondOrder, ...
