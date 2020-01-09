@@ -16,32 +16,40 @@ simulation = sim('fullSystem','SimulationMode','normal');
 simulationData = simulation.get('simulationData');
 assignin('base','simulationData',simulationData);
 
-allData = simulationData.signals.values(:, :);
+% Simulation Data
 time = simulationData.time;
 signalsNamesOrdered = ["compassSystem", "compassFilter",...
-    "fullSystem", "gyroFilter", "gyroSystem", "input"].';
+    "fullSystem", "gyroFilter", "gyroSystem", "input", "error"].';
 compassSystem = simulationData.signals.values(:, 1);
 compassFilter = simulationData.signals.values(:, 2);
 fullSystem = simulationData.signals.values(:, 3);
 gyroFilter = simulationData.signals.values(:, 4);
 gyroSystem = simulationData.signals.values(:, 5);
 input = simulationData.signals.values(:, 6);
+error = fullSystem - input;
+allData = [simulationData.signals.values(:, :), error];
 
-rawDataTable = table(time, compassSystem, compassFilter, fullSystem, gyroFilter, gyroSystem, input);
-writetable(rawDataTable ,'analytics/' + testInput + 'Raw.csv');
+rawDataTable = table(...
+    time,...
+    compassSystem,...
+    compassFilter,...
+    fullSystem,...
+    gyroFilter,...
+    gyroSystem,...
+    input,...
+    error);
+writetable(rawDataTable ,'analytics/cutoffVariations/'...
++ testInput... 
++ 'Raw.csv');
 
 %% Plot
 figure
 plot(time, compassSystem, time, compassFilter, time, fullSystem,...
-     time, gyroFilter, time, gyroSystem, time, input)
+     time, gyroFilter, time, gyroSystem, time, input, time, error)
 legend(signalsNamesOrdered)
-savefig("analytics/" + testInput + 'Fig.fig')
-% meanInput = mean(input);
-% meanCompassSystem = mean(compassSystem);
-% meanCompassFilter = mean(compassFilter);
-% meanFullSystem = mean(fullSystem);
-% meanGyroSystem = mean(gyroSystem);
-% meanGyroFilter = mean(gyroFilter);
+savefig("analytics/cutoffVariations/"...
+    + testInput... 
+    + 'Fig.fig')
 
 %% Signals Processing
 meanSignals = mean(allData(:, :)).';
@@ -61,7 +69,9 @@ analyticsTable = table(signalsNamesOrdered, maxSignals, minSignals, meanSignals,
     standardDeviationSignals, varianceSignals, kurtosisSignals,...
     skewnessSignals, firstMomentSignals, secondMomentSignals,...
     thirdMomentSignals, fourthMomentSignals)
-writetable(analyticsTable ,'analytics/' + testInput + 'Analytics.csv');
+writetable(analyticsTable ,'analytics/'...
+     + testInput... 
+     + 'Analytics.csv');
 %% Spectral Kurtuosis
 % i = 1;
 % for signalsAmount = 1:6
