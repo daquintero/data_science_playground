@@ -4,7 +4,7 @@
 % Create standard model parameters
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
-testInput = "ramp";
+testInput = "step";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
 varyingCutoffFrequencies = linspace(0.1, 1000, 1000); % 10 ^ -1 to 10 ^ -3
 

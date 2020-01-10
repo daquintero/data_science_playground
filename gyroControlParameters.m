@@ -4,4 +4,4 @@ timeConstant = 0.01; % tau
 sensitivity = 1; % k
 
 firstOrderNumerator = sensitivity;
-firstOrderDenominator = [timeConstant 1];
+firstOrderDenominator = [timeConstant 0];
