@@ -25,10 +25,12 @@ classdef HeadingSignals < matlab.System
             % Perform one-time calculations, such as computing constants
         end
         
-        function [step, ramp, sine] = stepImpl(obj, time)
+        function [step, ramp, sine, sawtoothWave] = stepImpl(obj, time)
             step = generateStep(obj, time);
             ramp = generateRamp(obj, time);
             sine = generateSine(obj, time);
+            sawtoothWave = generateSawtooth(obj, time);
+            % turn180 = generate180Turn(obj, time, turnTime);
         end
 
         function resetImpl(obj)
@@ -51,5 +53,10 @@ classdef HeadingSignals < matlab.System
             % Ramp input
             sine = sin(time);
         end
+        
+        function sawtoothWave = generateSawtooth(obj, time)
+            sawtoothWave = sawtooth(time);
+        end
+        
     end
 end

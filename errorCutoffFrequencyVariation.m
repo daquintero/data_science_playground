@@ -15,7 +15,7 @@ p = 1;
 % Iterating Parameters and Simulations
 for cutoffFrequencyIteration = varyingCutoffFrequencies
     % Compass Filter Variation
-    compassTimeConstant = 1/cutoffFrequencyIteration; % Rad
+    compassTimeConstant = 1/cutosffFrequencyIteration; % Rad
     compassFilterNumerator = compassFilterGain;
     compassFilterDenominator = [compassTimeConstant 1];
     compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
