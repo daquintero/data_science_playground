@@ -4,9 +4,9 @@
 % Create standard model parameters
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
-testInput = "ramp";
+testInput = "step";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = logspace(-1, 4); % 10 ^ -1 to 10 ^ -4
+varyingCutoffFrequencies = linspace(0.1, 1000, 1000); % 10 ^ -1 to 10 ^ -3
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -15,7 +15,7 @@ p = 1;
 % Iterating Parameters and Simulations
 for cutoffFrequencyIteration = varyingCutoffFrequencies
     % Compass Filter Variation
-    compassTimeConstant = 1/cutoffFrequencyIteration; % Rad
+    compassTimeConstant = 1/cutosffFrequencyIteration; % Rad
     compassFilterNumerator = compassFilterGain;
     compassFilterDenominator = [compassTimeConstant 1];
     compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
@@ -56,18 +56,18 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
         error);
     writetable(rawDataTable ,'analytics/cutoffVariations/'...
     + testInput... 
-    % + regexprep(string(cutoffFrequencyIteration),'\.','')...
+    + regexprep(string(cutoffFrequencyIteration),'\.','')...
     + 'Raw.csv');
 
     %% Plot
-    figure
-    plot(time, compassSystem, time, compassFilter, time, fullSystem,...
-         time, gyroFilter, time, gyroSystem, time, input, time, error)
-    legend(signalsNamesOrdered)
-    savefig("analytics/cutoffVariations/"...
-        + testInput... 
-        ...
-        + 'Fig.fig')
+    % figure
+    % plot(time, compassSystem, time, compassFilter, time, fullSystem,...
+    %      time, gyroFilter, time, gyroSystem, time, input, time, error)
+    % legend(signalsNamesOrdered)
+    % savefig("analytics/cutoffVariations/"...
+    %     + testInput... 
+    %     + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+    %     + 'Fig.fig')
     
     %% Signals Processing
     meanSignals = mean(allData(:, :)).';
@@ -89,8 +89,9 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
         thirdMomentSignals, fourthMomentSignals)
     writetable(analyticsTable ,'analytics/cutoffVariations/'...
          + testInput...
-         ... % + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+         + regexprep(string(cutoffFrequencyIteration),'\.','_')...
          + 'Analytics.csv');
-    
-    p = p + 1;
+    p = p + 1
 end
+
+close all

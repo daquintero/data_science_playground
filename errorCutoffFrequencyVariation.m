@@ -4,9 +4,9 @@
 % Create standard model parameters
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
-testInput = "sine";
+testInput = "step";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = linspace(0.1, 1000, 1000); % 10 ^ -1 to 10 ^ -4
+varyingCutoffFrequencies = linspace(0.1, 1000, 1000); % 10 ^ -1 to 10 ^ -3
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -15,7 +15,7 @@ p = 1;
 % Iterating Parameters and Simulations
 for cutoffFrequencyIteration = varyingCutoffFrequencies
     % Compass Filter Variation
-    compassTimeConstant = 1/cutosffFrequencyIteration; % Rad
+    compassTimeConstant = 1/cutoffFrequencyIteration; % Rad
     compassFilterNumerator = compassFilterGain;
     compassFilterDenominator = [compassTimeConstant 1];
     compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
