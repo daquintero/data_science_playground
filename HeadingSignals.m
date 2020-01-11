@@ -54,8 +54,12 @@ classdef HeadingSignals < matlab.System
             sine = sin(time);
         end
         
-        % function sawtoothWave = generateSawtooth(obj, time)
-        %     sawtoothWave = sawtooth(time);
+        % function lowRateTurn = generateLowRateTurn(obj, time, period)
+        % 
+        % end
+        % 
+        % function sawtoothWave = generateSawtooth(obj, time, period)
+        %      sawtoothWave = sawtooth(time);
         % end
         
     end

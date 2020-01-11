@@ -6,7 +6,7 @@ run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
 testInput = "step";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = linspace(0.1, 1000, 1000); % 10 ^ -1 to 10 ^ -3
+varyingCutoffFrequencies = linspace(0.001, 5, 100); % 10 ^ -1 to 10 ^ -3
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -59,15 +59,15 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     + regexprep(string(cutoffFrequencyIteration),'\.','')...
     + 'Raw.csv');
 
-    %% Plot
-    % figure
-    % plot(time, compassSystem, time, compassFilter, time, fullSystem,...
-    %      time, gyroFilter, time, gyroSystem, time, input, time, error)
-    % legend(signalsNamesOrdered)
-    % savefig("analytics/cutoffVariations/"...
-    %     + testInput... 
-    %     + regexprep(string(cutoffFrequencyIteration),'\.','_')...
-    %     + 'Fig.fig')
+    % Plot
+    figure
+    plot(time, compassSystem, time, compassFilter, time, fullSystem,...
+          time, gyroFilter, time, gyroSystem, time, input, time, error)
+    legend(signalsNamesOrdered)
+    savefig("analytics/cutoffVariations/"...
+         + testInput... 
+         + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+         + 'Fig.fig')
     
     %% Signals Processing
     meanSignals = mean(allData(:, :)).';
