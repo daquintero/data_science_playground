@@ -1,7 +1,8 @@
 %% Frequency Analysis
 firstOrderSystem = tf(firstOrderNumerator, firstOrderDenominator);
 firstOrderStep = step(firstOrderSystem);
-[magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = bode(firstOrderSystem);
+[magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = ...
+    bode(firstOrderSystem, {10^-1, 10^4});
 % figure % Figure only to check
 % step(firstOrderSystem);
 % bode(firstOrderSystem);
@@ -33,16 +34,9 @@ end
 figure
 hold on
 plot(frequenciesFirstOrder, iteratorMagnitudeDBFirstOrder);
-%yline(-3);
-%yline(3);
+yline(-3);
+yline(3);
 plot(filteredMagnitudeDBFirstOrder(1,:), filteredMagnitudeDBFirstOrder(2,:), '.')
-set(gca, 'XScale', 'log')
-hold off
-
-figure
-hold on
-plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
-plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
 set(gca, 'XScale', 'log')
 hold off
 

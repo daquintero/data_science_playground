@@ -55,7 +55,7 @@ maxMagnitudeFilteredMagnitudeDBSecondOrder = ...
     filteredMagnitudeDBSecondOrder(1, colMaxFilteredMagnitudeDBSecondOrder);
 
 
-%%
+%% Figure 1
 figure
 hold on
 plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
@@ -69,6 +69,7 @@ plot(badFilteredMagnitudeDBSecondOrder(1,:), ...
 set(gca, 'XScale', 'log')
 hold off
 
+%% Figure 2
 figure
 hold on
 plot(frequenciesSecondOrder, ...
@@ -79,6 +80,13 @@ plot(filteredPhaseDBSecondOrder(1,:), ...
 plot(badFilteredPhaseDBSecondOrder(1,:), ...
     badFilteredPhaseDBSecondOrder(2,:), ...
     '.r')
+set(gca, 'XScale', 'log')
+hold off
+
+figure
+hold on
+plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
+plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
 set(gca, 'XScale', 'log')
 hold off
 
