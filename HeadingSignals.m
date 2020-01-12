@@ -68,12 +68,22 @@ classdef HeadingSignals < matlab.System
         end
         
         function trueHeading = generateTrueHeading(obj, time)
-            % Note random wind gusts
+            % Time limits
+            step1Time = 3;
+            step2Time = 5;
+            step3Time = 18;
             
-            if time < 5
-                trueHeading = 1 + random("normal", 0, 0.1);
-            elseif (time > 5) && (time < 15)
-                trueHeading = 1
+            % State at those specific times
+            step1State = 1 + random("normal", 0, 0.2);
+            step2State = 3 * (time - step1Time + step1State)
+            step3State = 3 * (step3Time  - step1Time + step1State)
+            
+            if time < step1Time
+                trueHeading = step1State 
+            elseif (time >= step1Time) && (time < step2Time)
+                trueHeading = step2State + random("normal", 0, 2);
+            elseif (time >= step2Time) && (time < step3Time)
+                trueHeading = step3State
             else
                 trueHeading = 0
             end
