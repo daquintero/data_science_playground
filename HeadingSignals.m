@@ -72,8 +72,10 @@ classdef HeadingSignals < matlab.System
             
             if time < 5
                 trueHeading = 1 + random("normal", 0, 0.1);
+            elseif (time > 5) && (time < 15)
+                trueHeading = 1
             else
-                trueHeading = 20
+                trueHeading = 0
             end
         end
     end
