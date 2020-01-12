@@ -4,6 +4,12 @@
 % Create standard model parameters
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
+set_param('gyroFilter', 'SolverType', 'Variable-step')
+set_param('inputSignals', 'SolverType', 'Variable-step')
+set_param('postProcessing', 'SolverType', 'Variable-step')
+set_param('magneticCompass', 'SolverType', 'Variable-step')
+set_param('gyroSystem', 'SolverType', 'Variable-step')
+set_param('compassFilter', 'SolverType', 'Variable-step')
 testInput = "step";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
 varyingCutoffFrequencies = linspace(0.001, 5, 100); % 10 ^ -1 to 10 ^ -3

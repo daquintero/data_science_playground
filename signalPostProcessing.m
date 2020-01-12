@@ -3,7 +3,7 @@ run("./compassControlParameters.m");
 run("./idealCompassFilterParameters.m");
 run("./gyroControlParameters.m");
 run("./idealGyroFilterParameters.m");
-testInput = "step";
+testInput = "test";
 
 configurationParamtersTable = table(maxMagnitudeFilteredMagnitudeDBSecondOrder, ...
     maxFrequencyFilteredMagnitudeDBSecondOrder, compassTimeConstant, ...

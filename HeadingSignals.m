@@ -7,17 +7,14 @@ classdef HeadingSignals < matlab.System
 
     % Public, tunable properties
     properties
-        
+       
     end
 
     properties(DiscreteState)
     end
 
     % Pre-computed constants
-    properties(Access = private)
-        
-        
-
+    properties(Access = public)
     end
 
     methods(Access = protected)
@@ -25,10 +22,11 @@ classdef HeadingSignals < matlab.System
             % Perform one-time calculations, such as computing constants
         end
         
-        function [step, ramp, sine] = stepImpl(obj, time)
+        function [step, ramp, sine, trueHeading] = stepImpl(obj, time)
             step = generateStep(obj, time);
             ramp = generateRamp(obj, time);
             sine = generateSine(obj, time);
+            trueHeading = generateTrueHeading(obj, time);
             % sawtoothWave = generateSawtooth(obj, time);
             % turn180 = generate180Turn(obj, time, turnTime);
         end
@@ -52,7 +50,7 @@ classdef HeadingSignals < matlab.System
         function sine = generateSine(obj, time)
             % Ramp input
             sine = sin(time);
-        end
+        end 
         
         % function lowRateTurn = generateLowRateTurn(obj, time, period)
         % 
@@ -62,5 +60,16 @@ classdef HeadingSignals < matlab.System
         %      sawtoothWave = sawtooth(time);
         % end
         
+    end
+    
+    methods(Access = public)
+        function trueHeading = generateTrueHeading(obj, time)
+            % Step counter of how many spaces in array
+            if time > 5
+                trueHeading = time/10 + 10;
+            else
+                trueHeading = 0
+            end
+        end
     end
 end
