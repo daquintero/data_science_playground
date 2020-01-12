@@ -15,6 +15,7 @@ classdef HeadingSignals < matlab.System
 
     % Pre-computed constants
     properties(Access = public)
+
     end
 
     methods(Access = protected)
@@ -63,18 +64,9 @@ classdef HeadingSignals < matlab.System
     end
     
     methods(Access = public)
-        function windGusts = generateWindGusts(obj, time)
-        
-        end
-        
         function trueHeading = generateTrueHeading(obj, time)
-            % Note random wind gusts
-            
-            if time < 5
-                trueHeading = 1 + random("normal", 0, 0.1);
-            else
-                trueHeading = 20
-            end
+            % Step counter of how many spaces in array
+            trueHeading = time;
         end
     end
 end
