@@ -3,11 +3,7 @@ secondOrderSystem = tf(compassTransferFunctionNumerator, compassTransferFunction
 [magnitudeSecondOrder, phaseSecondOrder, frequenciesSecondOrder] = bode(secondOrderSystem);
 maximumSlopeSecondOrder3dBLimit = [0.15, 0.2];
 
-magnitudeBodeCompass = magnitudeSecondOrder(:,:).'
-phaseBodeCompass = phaseSecondOrder(:,:).'
-rawBodeTableCompass = table(magnitudeBodeCompass, phaseBodeCompass,...
-    frequenciesSecondOrder)
-writetable(rawBodeTableCompass, "analytics/rawBodeTableCompass.csv")
+bode
 % figure % Figure nly to check
 % bode(secondOrderSystem);
 
@@ -107,9 +103,6 @@ compassTimeConstant = 1/maxFrequencyFilteredMagnitudeDBSecondOrder; % Rad
 compassFilterNumerator = compassFilterGain;
 compassFilterDenominator = [compassTimeConstant 1];
 compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
-% figure
+figure
 % bode(compassFilterTransferFunction)
-[realNyquistCompass,imaginaryNyquistCompass,...
-    frequencyNyquistCompass] = nyquist(compassFilterTransferFunction);
-rawNyquistCompass = table(realNyquistCompass(:,:).', imaginaryNyquistCompass(:,:).', frequencyNyquistCompass)
-writetable(rawNyquistCompass, "analytics/rawNyquistTableCompass.csv")
+nyquist(compassFilterTransferFunction)
