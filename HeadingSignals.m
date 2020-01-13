@@ -69,6 +69,10 @@ classdef HeadingSignals < matlab.System
         
         function trueHeading = generateTrueHeading(obj, time)
             maximumTurnRate = 200;
+            chirpStartFrequency = 0.001;
+            chirpEndFrequency = 25;
+            chirpPeriod = 25;
+            chirpConstant = (chirpEndFrequency - chirpStartFrequency) / chirpPeriod
             
             % Time limits
             step1Time = 3;
@@ -77,7 +81,7 @@ classdef HeadingSignals < matlab.System
             transition23EndTime = step2Time + 2; % 15
             step3Time = transition23EndTime + 5; % 20
             transition34EndTime = step3Time + 5; % 25
-            step4Time = transition34EndTime + 20; % 30
+            step4Time = transition34EndTime + chirpPeriod; % 30
             
             % State at those specific times
             step1State = 1;
@@ -101,11 +105,12 @@ classdef HeadingSignals < matlab.System
             elseif (time >= step3Time) && (time < transition34EndTime)
                 trueHeading = transitionState34;
             elseif (time >= transition34EndTime) && (time < step4Time)
-               trueHeading = step4State/2 * sin((time-step4Time)) - 50;
+               trueHeading = step4State/2 * sin((chirpConstant * (time-step4Time) ^ 2 / 2 +...
+                   chirpStartFrequency *(time-step4Time))) - 50;
 %             elseif (time >= step4Time)
 %                 trueHeading = step4State/2 * sin((time-step4Time)) - 50;
             else
-                trueHeading = step3State;
+                trueHeading = -50;
             end
             trueHeading = trueHeading + random("normal", 0, maximumTurnRate * 0.005)
         end
