@@ -70,9 +70,9 @@ classdef HeadingSignals < matlab.System
         function trueHeading = generateTrueHeading(obj, time)
             maximumTurnRate = 200;
             chirpStartFrequency = 0.001;
-            chirpEndFrequency = 25;
+            chirpEndFrequency = 20;
             chirpPeriod = 25;
-            chirpConstant = (chirpEndFrequency - chirpStartFrequency) / chirpPeriod
+            chirpConstant = (chirpEndFrequency - chirpStartFrequency) / chirpPeriod;
             
             % Time limits
             step1Time = 3;
@@ -88,7 +88,7 @@ classdef HeadingSignals < matlab.System
             step2State = maximumTurnRate/2;
             transitionState12 = (time - step1Time) * (step2State - step1State) / (transition12EndTime - step1Time);
             step3State = -maximumTurnRate/2;
-            transitionState23 = (time - step2Time -1) * (step3State - step2State) / (transition23EndTime - step2Time)
+            transitionState23 = (time - step2Time -1) * (step3State - step2State) / (transition23EndTime - step2Time);
             step4State = -maximumTurnRate/4;
             transitionState34 = (time - step3Time - 10) * (step4State - step3State) / (transition34EndTime - step3Time);
             
@@ -99,20 +99,20 @@ classdef HeadingSignals < matlab.System
             elseif (time > transition12EndTime) && (time <= step2Time)
                 trueHeading = step2State;
             elseif (time > step2Time) && (time <= transition23EndTime)
-                trueHeading = transitionState23
+                trueHeading = transitionState23;
             elseif (time > transition23EndTime) && (time <= step3Time)
                 trueHeading = step3State;
             elseif (time >= step3Time) && (time < transition34EndTime)
                 trueHeading = transitionState34;
             elseif (time >= transition34EndTime) && (time < step4Time)
-               trueHeading = step4State/2 * sin((chirpConstant * (time-step4Time) ^ 2 / 2 +...
-                   chirpStartFrequency *(time-step4Time))) - 50;
+               trueHeading = step4State/4 * sin(((chirpConstant * (time-step4Time) ^ 2 / 2 +...
+                   chirpStartFrequency *(time-step4Time)))) - 50;
 %             elseif (time >= step4Time)
 %                 trueHeading = step4State/2 * sin((time-step4Time)) - 50;
             else
                 trueHeading = -50;
             end
-            trueHeading = trueHeading + random("normal", 0, maximumTurnRate * 0.005)
+            trueHeading = trueHeading + random("normal", 0, maximumTurnRate * 0.005);
         end
     end
 end

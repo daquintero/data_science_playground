@@ -88,6 +88,7 @@ savefig("analytics/"...
     + 'Fig.fig')
 
 %% Signals Processing
+% Raw Signals
 meanSignals = mean(allData(:, :)).';
 standardDeviationSignals = std(allData(:, :)).';
 varianceSignals = var(allData(:, :)).';
@@ -101,8 +102,14 @@ fourthMomentSignals = moment(allData(:, :), 4).';
 skewnessSignals = skewness(allData(:, :)).';
 rmsSignals = rms(allData(:, :)).';
 powerSignals = powerbw(allData(:, :)).';
+% Correlations
 maxCorrelationSignals = max(correlationData).';
 meanCorrelationSignals = mean(correlationData).';
+standardDeviationSignals = std(correlationData).';
+varCorrelationSignals = var(correlationData).';
+kurtosisCorrelationSignals = kurtosis(correlationData).';
+powerCorrelationSignals = powerbw(correlationData).';
+rmsCorrelationSignals = rms(correlationData).';
 % overshootSignals = overshoot(fullSystem).';
 % undershootSignals = undershoot(fullSystem).';
 % settlingTimeSignals = settlingtime(fullSystem).';
@@ -113,7 +120,9 @@ analyticsTable = table(signalsNamesOrdered, maxSignals, minSignals, meanSignals,
     standardDeviationSignals, varianceSignals, kurtosisSignals,...
     skewnessSignals, firstMomentSignals, secondMomentSignals,...
     thirdMomentSignals, fourthMomentSignals, rmsSignals,...
-    powerSignals, maxCorrelationSignals, meanCorrelationSignals)
+    powerSignals, maxCorrelationSignals, meanCorrelationSignals,...
+    standardDeviationSignals, varCorrelationSignals, kurtosisCorrelationSignals,...
+    powerCorrelationSignals, rmsCorrelationSignals)
 writetable(analyticsTable ,'analytics/'...
      + testInput...
      + datestr(now,'_dd_HH_MM_')...
