@@ -82,7 +82,7 @@ classdef HeadingSignals < matlab.System
             step3Time = transition23EndTime + 5; % 20
             transition34EndTime = step3Time + 5; % 25
             step4Time = transition34EndTime + chirpPeriod; % 30
-            step5Time = step4Time + 5
+            step5Time = step4Time + 5;
             
             % State at those specific times
             step1State = 1;

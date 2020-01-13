@@ -4,13 +4,7 @@
 % Create standard model parameters
 run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
-set_param('gyroFilter', 'SolverType', 'Variable-step')
-set_param('inputSignals', 'SolverType', 'Variable-step')
-set_param('postProcessing', 'SolverType', 'Variable-step')
-set_param('magneticCompass', 'SolverType', 'Variable-step')
-set_param('gyroSystem', 'SolverType', 'Variable-step')
-set_param('compassFilter', 'SolverType', 'Variable-step')
-testInput = "step";
+testInput = "trueHeading";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
 varyingCutoffFrequencies = linspace(0.001, 50, 500); % 10 ^ -1 to 10 ^ -3
 
@@ -67,6 +61,7 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
 
     % Plot
     figure
+    title(num2str(cutoffFrequencyIteration))
     plot(time, compassSystem, time, compassFilter, time, fullSystem,...
           time, gyroFilter, time, gyroSystem, time, input, time, error)
     legend(signalsNamesOrdered)
@@ -103,6 +98,7 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     + 'Correlations.csv');
 
     figure
+    title(num2str(cutoffFrequencyIteration))
     stackedplot(correlationsDataTable)
     savefig("analytics/"...
         + testInput...
