@@ -12,7 +12,7 @@ set_param('gyroSystem', 'SolverType', 'Variable-step')
 set_param('compassFilter', 'SolverType', 'Variable-step')
 testInput = "step";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = linspace(0.001, 5, 100); % 10 ^ -1 to 10 ^ -3
+varyingCutoffFrequencies = linspace(0.001, 50, 500); % 10 ^ -1 to 10 ^ -3
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -98,13 +98,21 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
         errorAutoCorrelation);
     writetable(correlationsDataTable,'analytics/'...
     + testInput...
-    + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+    + "_t_"...
+    + datestr(now,'mm-dd-yyyy HH-MM')...
     + 'Correlations.csv');
 
     figure
     stackedplot(correlationsDataTable)
+    savefig("analytics/"...
+        + testInput...
+        + datestr(now,'_dd_HH_MM_')...
+        + 'CorrelationFig.fig')
+
+
     
     %% Signals Processing
+    % Raw Signals
     meanSignals = mean(allData(:, :)).';
     standardDeviationSignals = std(allData(:, :)).';
     varianceSignals = var(allData(:, :)).';
@@ -118,15 +126,23 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     skewnessSignals = skewness(allData(:, :)).';
     rmsSignals = rms(allData(:, :)).';
     powerSignals = powerbw(allData(:, :)).';
+    % Correlations
     maxCorrelationSignals = max(correlationData).';
     meanCorrelationSignals = mean(correlationData).';
+    standardDeviationSignals = std(correlationData).';
+    varCorrelationSignals = var(correlationData).';
+    kurtosisCorrelationSignals = kurtosis(correlationData).';
+    powerCorrelationSignals = powerbw(correlationData).';
+    rmsCorrelationSignals = rms(correlationData).';
 
     %% Display Analytics
     analyticsTable = table(signalsNamesOrdered, maxSignals, minSignals, meanSignals,...
         standardDeviationSignals, varianceSignals, kurtosisSignals,...
         skewnessSignals, firstMomentSignals, secondMomentSignals,...
         thirdMomentSignals, fourthMomentSignals, rmsSignals,...
-        powerSignals, maxCorrelationSignals, meanCorrelationSignals)
+        powerSignals, maxCorrelationSignals, meanCorrelationSignals,...
+        standardDeviationSignals, varCorrelationSignals, kurtosisCorrelationSignals,...
+        powerCorrelationSignals, rmsCorrelationSignals)
     writetable(analyticsTable ,'analytics/cutoffVariations/'...
          + testInput...
          + regexprep(string(cutoffFrequencyIteration),'\.','_')...
