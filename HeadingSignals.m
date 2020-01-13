@@ -77,20 +77,22 @@ classdef HeadingSignals < matlab.System
             % Time limits
             step1Time = 3;
             transition12EndTime = step1Time + 5; % 8
-            step2Time = transition12EndTime + 5; % 13
+            step2Time = transition12EndTime + 2; % 13
             transition23EndTime = step2Time + 2; % 15
             step3Time = transition23EndTime + 5; % 20
             transition34EndTime = step3Time + 5; % 25
             step4Time = transition34EndTime + chirpPeriod; % 30
+            step5Time = step4Time + 5
             
             % State at those specific times
             step1State = 1;
             step2State = maximumTurnRate/2;
             transitionState12 = (time - step1Time) * (step2State - step1State) / (transition12EndTime - step1Time);
-            step3State = -maximumTurnRate/2;
+            step3State = - maximumTurnRate/2;
             transitionState23 = (time - step2Time -1) * (step3State - step2State) / (transition23EndTime - step2Time);
             step4State = -maximumTurnRate/4;
             transitionState34 = (time - step3Time - 10) * (step4State - step3State) / (transition34EndTime - step3Time);
+            step5State = - maximumTurnRate/2;
             
             if time <= step1Time
                 trueHeading = step1State;
@@ -105,12 +107,12 @@ classdef HeadingSignals < matlab.System
             elseif (time >= step3Time) && (time < transition34EndTime)
                 trueHeading = transitionState34;
             elseif (time >= transition34EndTime) && (time < step4Time)
-               trueHeading = step4State/4 * sin(((chirpConstant * (time-step4Time) ^ 2 / 2 +...
-                   chirpStartFrequency *(time-step4Time)))) - 50;
-%             elseif (time >= step4Time)
-%                 trueHeading = step4State/2 * sin((time-step4Time)) - 50;
+                trueHeading = step4State/4 * sin(((chirpConstant * (time-step4Time) ^ 2 / 2 +...
+                   chirpStartFrequency *(time-step4Time)))) + step4State;
+            elseif (time >= step4Time) && (time < step5Time)
+                trueHeading = step5State;
             else
-                trueHeading = -50;
+                trueHeading = step4State;
             end
             trueHeading = trueHeading + random("normal", 0, maximumTurnRate * 0.005);
         end
