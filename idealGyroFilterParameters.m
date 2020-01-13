@@ -30,15 +30,15 @@ for magnitudeValue = rawMagnitudeDBFirstOrder(2,:)
     j = j + 1;
 end
 
-%% Plots
-figure
-hold on
-plot(frequenciesFirstOrder, iteratorMagnitudeDBFirstOrder);
-yline(-3);
-yline(3);
-plot(filteredMagnitudeDBFirstOrder(1,:), filteredMagnitudeDBFirstOrder(2,:), '.')
-set(gca, 'XScale', 'log')
-hold off
+% %% Plots
+% figure
+% hold on
+% plot(frequenciesFirstOrder, iteratorMagnitudeDBFirstOrder);
+% yline(-3);
+% yline(3);
+% plot(filteredMagnitudeDBFirstOrder(1,:), filteredMagnitudeDBFirstOrder(2,:), '.')
+% set(gca, 'XScale', 'log')
+% hold off
 
 %% Gyro Filter Denominator
 gyroCutoffFrequency = compassTimeConstant;

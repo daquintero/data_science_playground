@@ -68,25 +68,37 @@ classdef HeadingSignals < matlab.System
         end
         
         function trueHeading = generateTrueHeading(obj, time)
+            maximumTurnRate = 200;
+            
             % Time limits
             step1Time = 3;
-            step2Time = 5;
-            step3Time = 18;
+            transition12EndTime = step1Time + 5;
+            step2Time = transition12EndTime + 10;
+            transition23EndTime = step2Time + 2;
+            step3Time = transition23EndTime + 10;
+            
             
             % State at those specific times
-            step1State = 1 + random("normal", 0, 0.2);
-            step2State = 3 * (time - step1Time + step1State)
-            step3State = 3 * (step3Time  - step1Time + step1State)
+            step1State = 1;
+            step2State = maximumTurnRate/2;
+            transitionState12 = (time - step1Time) * (step2State - step1State) / (transition12EndTime - step1Time);
+            step3State = -maximumTurnRate;
+            transitionState23 = 3 * (time - step2Time) * (step3State - step2State) / (transition23EndTime - step2Time);
             
             if time < step1Time
-                trueHeading = step1State 
-            elseif (time >= step1Time) && (time < step2Time)
-                trueHeading = step2State + random("normal", 0, 2);
-            elseif (time >= step2Time) && (time < step3Time)
-                trueHeading = step3State
+                trueHeading = step1State;
+            elseif (time >= step1Time) && (time < transition12EndTime)
+                trueHeading = transitionState12;
+            elseif (time >= transition12EndTime) && (time < step2Time)
+                trueHeading = step2State;
+            elseif (time >= step2Time) && (time < transition23EndTime)
+                trueHeading = transitionState23;
+            elseif (time >= transition23EndTime) && (time < step3Time)
+                trueHeading = step3State;
             else
-                trueHeading = 0
+                trueHeading = 10;
             end
+            trueHeading = trueHeading + random("normal", 0, maximumTurnRate * 0.005);
         end
     end
 end

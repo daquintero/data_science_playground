@@ -55,46 +55,46 @@ maxMagnitudeFilteredMagnitudeDBSecondOrder = ...
     filteredMagnitudeDBSecondOrder(1, colMaxFilteredMagnitudeDBSecondOrder);
 
 
-%% Figure 1
-figure
-hold on
-plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
-yline(-3);
-yline(3);
-plot(filteredMagnitudeDBSecondOrder(1,:), ...
-    filteredMagnitudeDBSecondOrder(2,:), '.b')
-plot(badFilteredMagnitudeDBSecondOrder(1,:), ...
-    badFilteredMagnitudeDBSecondOrder(2,:), ...
-    '.r')
-set(gca, 'XScale', 'log')
-hold off
-
-%% Figure 2
-figure
-hold on
-plot(frequenciesSecondOrder, ...
-    phaseSecondOrder(:,:));
-plot(filteredPhaseDBSecondOrder(1,:), ...
-    filteredPhaseDBSecondOrder(2,:), ...
-    '.b')
-plot(badFilteredPhaseDBSecondOrder(1,:), ...
-    badFilteredPhaseDBSecondOrder(2,:), ...
-    '.r')
-set(gca, 'XScale', 'log')
-hold off
-
-figure
-hold on
-plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
-plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
-set(gca, 'XScale', 'log')
-hold off
-
-disp("The 3dB cutoff maximum frequency is limited at a maximum slope of "...
-    + maximumSlopeSecondOrder3dBLimit(1) + ". " + newline + ...
-    "The minimum and maximum safe operational frequency of the sensor is: " + newline + ...
-    + maxFrequencyFilteredMagnitudeDBSecondOrder + " rad/s with a "...
-    + "maximum magnitude of " + maxMagnitudeFilteredMagnitudeDBSecondOrder + " dB");
+% %% Figure 1
+% figure
+% hold on
+% plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
+% yline(-3);
+% yline(3);
+% plot(filteredMagnitudeDBSecondOrder(1,:), ...
+%     filteredMagnitudeDBSecondOrder(2,:), '.b')
+% plot(badFilteredMagnitudeDBSecondOrder(1,:), ...
+%     badFilteredMagnitudeDBSecondOrder(2,:), ...
+%     '.r')
+% set(gca, 'XScale', 'log')
+% hold off
+% 
+% %% Figure 2
+% figure
+% hold on
+% plot(frequenciesSecondOrder, ...
+%     phaseSecondOrder(:,:));
+% plot(filteredPhaseDBSecondOrder(1,:), ...
+%     filteredPhaseDBSecondOrder(2,:), ...
+%     '.b')
+% plot(badFilteredPhaseDBSecondOrder(1,:), ...
+%     badFilteredPhaseDBSecondOrder(2,:), ...
+%     '.r')
+% set(gca, 'XScale', 'log')
+% hold off
+% 
+% figure
+% hold on
+% plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
+% plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
+% set(gca, 'XScale', 'log')
+% hold off
+% 
+% disp("The 3dB cutoff maximum frequency is limited at a maximum slope of "...
+%     + maximumSlopeSecondOrder3dBLimit(1) + ". " + newline + ...
+%     "The minimum and maximum safe operational frequency of the sensor is: " + newline + ...
+%     + maxFrequencyFilteredMagnitudeDBSecondOrder + " rad/s with a "...
+%     + "maximum magnitude of " + maxMagnitudeFilteredMagnitudeDBSecondOrder + " dB");
 %%
 compassFilterGain = 1;
 compassTimeConstant = 1/maxFrequencyFilteredMagnitudeDBSecondOrder; % Rad
