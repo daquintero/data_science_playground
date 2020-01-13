@@ -77,7 +77,7 @@ classdef HeadingSignals < matlab.System
             transition23EndTime = step2Time + 2; % 15
             step3Time = transition23EndTime + 5; % 20
             transition34EndTime = step3Time + 5; % 25
-            step4Time = transition34EndTime + 5; % 30
+            step4Time = transition34EndTime + 20; % 30
             
             % State at those specific times
             step1State = 1;
@@ -86,7 +86,7 @@ classdef HeadingSignals < matlab.System
             step3State = -maximumTurnRate/2;
             transitionState23 = (time - step2Time -1) * (step3State - step2State) / (transition23EndTime - step2Time)
             step4State = -maximumTurnRate/4;
-            transitionState34 = (time - step3Time) * (step4State - step3State) / (transition34EndTime - step3Time);
+            transitionState34 = (time - step3Time - 10) * (step4State - step3State) / (transition34EndTime - step3Time);
             
             if time <= step1Time
                 trueHeading = step1State;
@@ -98,10 +98,10 @@ classdef HeadingSignals < matlab.System
                 trueHeading = transitionState23
             elseif (time > transition23EndTime) && (time <= step3Time)
                 trueHeading = step3State;
-%             elseif (time >= step3Time) && (time < transition34EndTime)
-%                 trueHeading = transitionState34;
-%             elseif (time >= transition34EndTime) && (time < step4Time)
-%                 trueHeading = step4State;
+            elseif (time >= step3Time) && (time < transition34EndTime)
+                trueHeading = transitionState34;
+            elseif (time >= transition34EndTime) && (time < step4Time)
+               trueHeading = step4State/2 * sin((time-step4Time)) - 50;
 %             elseif (time >= step4Time)
 %                 trueHeading = step4State/2 * sin((time-step4Time)) - 50;
             else
