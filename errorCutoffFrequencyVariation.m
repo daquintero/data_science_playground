@@ -61,9 +61,9 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
 
     % Plot
     figure
-    title(num2str(cutoffFrequencyIteration))
     plot(time, compassSystem, time, compassFilter, time, fullSystem,...
           time, gyroFilter, time, gyroSystem, time, input, time, error)
+    title(num2str(cutoffFrequencyIteration))
     legend(signalsNamesOrdered)
     savefig("analytics/cutoffVariations/"...
          + testInput... 
@@ -98,8 +98,8 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     + 'Correlations.csv');
 
     figure
-    title(num2str(cutoffFrequencyIteration))
     stackedplot(correlationsDataTable)
+    title(num2str(cutoffFrequencyIteration))
     savefig("analytics/"...
         + testInput...
         + datestr(now,'_dd_HH_MM_')...
