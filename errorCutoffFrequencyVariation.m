@@ -6,7 +6,7 @@ run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
 testInput = "trueHeading";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = linspace(0.001, 1, 50);
+varyingCutoffFrequencies = linspace(0.001, 0.01, 20);
 
 % Compass Constant Parameters
 compassFilterGain = 1;
