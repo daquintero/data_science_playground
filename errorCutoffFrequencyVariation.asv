@@ -7,9 +7,9 @@ run("./gyroControlParameters.m");
 testInput = "trueHeading";
 
 % Data save folder location
-saveFolderLocation = "analytics/cutoffVariations/long_heading_small_dataset/";
+saveFolderLocation = "analytics/cutoffVariations/standa_dataset/";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = logspace(-2, 0, 1000);
+varyingCutoffFrequencies = logspace(-2, 2, 250);
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -134,13 +134,13 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     + regexprep(string(cutoffFrequencyIteration),'\.','_')...
     + 'Correlations.csv');
 
-    figure
-    stackedplot(correlationsDataTable)
-    title(num2str(cutoffFrequencyIteration))
-    savefig(saveFolderLocation...
-        + testInput... 
-        + regexprep(string(cutoffFrequencyIteration),'\.','_')...
-        + 'CorrelationFig.fig')
+%     figure
+%     stackedplot(correlationsDataTable)
+%     title(num2str(cutoffFrequencyIteration))
+%     savefig(saveFolderLocation...
+%         + testInput... 
+%         + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+%         + 'CorrelationFig.fig')
 
 
     
@@ -181,10 +181,10 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
          + regexprep(string(cutoffFrequencyIteration),'\.','_')...
          + 'Analytics.csv');
     p = p + 1
-    if p > 100
-        close all
-        p=0;
-    end
+%     if p > 100
+%         close all
+%         p=0;
+%     end
 end
 ! git add * && git commit -am "Ran long heading" && git push origin master
 close all
