@@ -181,6 +181,10 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
          + regexprep(string(cutoffFrequencyIteration),'\.','_')...
          + 'Analytics.csv');
     p = p + 1
+    if p > 100
+        close all
+        p=0;
+    end
 end
-! git add * && git commit -am "Ran long heading" ** git push origin master
+! git add * && git commit -am "Ran long heading" && git push origin master
 close all
