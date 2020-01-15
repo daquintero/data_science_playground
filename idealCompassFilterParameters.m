@@ -1,7 +1,7 @@
 %% Frequency Analysis
 secondOrderSystem = tf(compassTransferFunctionNumerator, compassTransferFunctionDenominator);
 [magnitudeSecondOrder, phaseSecondOrder, frequenciesSecondOrder] = bode(secondOrderSystem);
-maximumSlopeSecondOrder3dBLimit = [0.15, 0.2];
+maximumSlopeSecondOrder3dBLimit = [0.12, 0.2];
 
 magnitudeBodeCompass = magnitudeSecondOrder(:,:).'
 phaseBodeCompass = phaseSecondOrder(:,:).'
