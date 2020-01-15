@@ -9,7 +9,7 @@ testInput = "trueHeading";
 % Data save folder location
 saveFolderLocation = "analytics/cutoffVariations/long_heading_small_dataset/";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = logspace(-2, 2, 12);
+varyingCutoffFrequencies = logspace(-2, 0, 500);
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -80,16 +80,16 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     + regexprep(string(cutoffFrequencyIteration),'\.','_')...
     + 'Raw.csv');
 
-    % Plot
-    figure
-    plot(time, compassSystem, time, compassFilter, time, fullSystem,...
-          time, gyroFilter, time, gyroSystem, time, input, time, fullSystemError)
-    title(num2str(cutoffFrequencyIteration))
-    legend(signalsNamesOrdered)
-    savefig(saveFolderLocation...
-         + testInput... 
-         + regexprep(string(cutoffFrequencyIteration),'\.','_')...
-         + 'Fig.fig')
+%     % Plot
+%     figure
+%     plot(time, compassSystem, time, compassFilter, time, fullSystem,...
+%           time, gyroFilter, time, gyroSystem, time, input, time, fullSystemError)
+%     title(num2str(cutoffFrequencyIteration))
+%     legend(signalsNamesOrdered)
+%     savefig(saveFolderLocation...
+%          + testInput... 
+%          + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+%          + 'Fig.fig')
     
     
     %% Correlations
@@ -181,10 +181,10 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
          + regexprep(string(cutoffFrequencyIteration),'\.','_')...
          + 'Analytics.csv');
     p = p + 1
-    if p > 100
-        close all
-        p=0;
-    end
+%     if p > 100
+%         close all
+%         p=0;
+%     end
 end
 ! git add * && git commit -am "Ran long heading" && git push origin master
 close all

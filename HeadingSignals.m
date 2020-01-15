@@ -63,9 +63,6 @@ classdef HeadingSignals < matlab.System
     end
     
     methods(Access = public)
-        function windGusts = generateWindGusts(obj, time)
-        
-        end
         
         function trueHeading = generateTrueHeading(obj, time)
             maximumTurnRate = 200;
@@ -101,7 +98,7 @@ classdef HeadingSignals < matlab.System
             step4State = -maximumTurnRate/4;
             transitionState34 = (time - step3Time - 10) * (step4State - step3State) / (transition34EndTime - step3Time);
             step5State = - maximumTurnRate/2;
-            variableState = step4State
+            variableState = step4State;
             
             if time <= step1Time
                 trueHeading = step1State;
@@ -124,7 +121,7 @@ classdef HeadingSignals < matlab.System
                 if (time < step5Time + 30)
                     variableState = step4State + 3 * (time - step5Time);
                 elseif (time >= step5Time + 30) && (time <= step5Time + 3/4 * longChirpPeriod)
-                    variableState = variableState - 2 * (time - step5Time) + 200;
+                    variableState = (variableState - 2 * (time - step5Time) + 200);
                 end
                 trueHeading = variableState/4 * sin(((2 * longChirpConstant * (time-longChirpPeriod) ^ 2 / 2 +...
                    chirpStartFrequency *(time-step5Time)))) + variableState;
