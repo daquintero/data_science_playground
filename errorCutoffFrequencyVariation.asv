@@ -6,7 +6,7 @@ run("./compassControlParameters.m");
 run("./gyroControlParameters.m");
 testInput = "trueHeading";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = linspace(0.001, 25, 500);
+varyingCutoffFrequencies = linspace(0.001, 25, );
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -179,5 +179,5 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
          + 'Analytics.csv');
     p = p + 1
 end
-! git add * && git commit -am "Ran long heading" ** git push origin master
+
 close all
