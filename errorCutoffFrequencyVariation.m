@@ -9,7 +9,7 @@ testInput = "trueHeading";
 % Data save folder location
 saveFolderLocation = "analytics/cutoffVariations/long_heading_very_small_dataset/";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
-varyingCutoffFrequencies = logspace(-2, 0, 500);
+varyingCutoffFrequencies = logspace(0, 1, 250);
 
 % Compass Constant Parameters
 compassFilterGain = 1;
@@ -134,13 +134,13 @@ for cutoffFrequencyIteration = varyingCutoffFrequencies
     + regexprep(string(cutoffFrequencyIteration),'\.','_')...
     + 'Correlations.csv');
 
-    figure
-    stackedplot(correlationsDataTable)
-    title(num2str(cutoffFrequencyIteration))
-    savefig(saveFolderLocation...
-        + testInput... 
-        + regexprep(string(cutoffFrequencyIteration),'\.','_')...
-        + 'CorrelationFig.fig')
+%     figure
+%     stackedplot(correlationsDataTable)
+%     title(num2str(cutoffFrequencyIteration))
+%     savefig(saveFolderLocation...
+%         + testInput... 
+%         + regexprep(string(cutoffFrequencyIteration),'\.','_')...
+%         + 'CorrelationFig.fig')
 
 
     
