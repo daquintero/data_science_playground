@@ -10,6 +10,7 @@ rawBodeTableCompass = table(magnitudeBodeCompass, phaseBodeCompass,...
 writetable(rawBodeTableCompass, "analytics/derivations/rawBodeTableCompass.csv")
 % figure % Figure nly to check
 % bode(secondOrderSystem);
+% nyquist(secondOrderSystem);
 
 % All db Magnitude points
 i = 1;
@@ -87,7 +88,6 @@ plot(badFilteredPhaseDBSecondOrder(1,:), ...
     badFilteredPhaseDBSecondOrder(2,:), ...
     '.r')
 set(gca, 'XScale', 'log')
-set(gca, 'Title', "Hi")
 hold off
 
 figure
@@ -115,7 +115,7 @@ compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenomina
 rawNyquistCompass = table(realNyquistCompass(:,:).', imaginaryNyquistCompass(:,:).', frequencyNyquistCompass)
 % Nyquist Raw Data
 writetable(rawNyquistCompass, "analytics/derivations/rawNyquistTableCompass.csv")
-% Filtered Bode magnitude
-writematrix(filteredMagnitudeDBSecondOrder.', "analytics/derivations/filteredMagnitudeDBSecondOrder.csv")
-
-writematrix(badFilteredPhaseDBSecondOrder.', "analytics/derivations/badFilteredPhaseDBSecondOrder.csv")
+% Filtered Bode magnitude & Phase
+writematrix([filteredMagnitudeDBSecondOrder; filteredPhaseDBSecondOrder].', "analytics/derivations/filteredDBSecondOrder.csv")
+% Error Bode magnitude & Phase
+writematrix([badFilteredMagnitudeDBSecondOrder; badFilteredPhaseDBSecondOrder].', "analytics/derivations/badFilteredDBSecondOrder.csv")
