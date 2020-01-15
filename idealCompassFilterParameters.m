@@ -7,7 +7,7 @@ magnitudeBodeCompass = magnitudeSecondOrder(:,:).'
 phaseBodeCompass = phaseSecondOrder(:,:).'
 rawBodeTableCompass = table(magnitudeBodeCompass, phaseBodeCompass,...
     frequenciesSecondOrder)
-writetable(rawBodeTableCompass, "analytics/rawBodeTableCompass.csv")
+writetable(rawBodeTableCompass, "analytics/derivations/rawBodeTableCompass.csv")
 % figure % Figure nly to check
 % bode(secondOrderSystem);
 
@@ -62,39 +62,40 @@ maxMagnitudeFilteredMagnitudeDBSecondOrder = ...
 
 
 % %% Figure 1
-% figure
-% hold on
-% plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
-% yline(-3);
-% yline(3);
-% plot(filteredMagnitudeDBSecondOrder(1,:), ...
-%     filteredMagnitudeDBSecondOrder(2,:), '.b')
-% plot(badFilteredMagnitudeDBSecondOrder(1,:), ...
-%     badFilteredMagnitudeDBSecondOrder(2,:), ...
-%     '.r')
-% set(gca, 'XScale', 'log')
-% hold off
+figure
+hold on
+plot(frequenciesSecondOrder, iteratorMagnitudeDBSecondOrder);
+yline(-3);
+yline(3);
+plot(filteredMagnitudeDBSecondOrder(1,:), ...
+    filteredMagnitudeDBSecondOrder(2,:), '.b')
+plot(badFilteredMagnitudeDBSecondOrder(1,:), ...
+    badFilteredMagnitudeDBSecondOrder(2,:), ...
+    '.r')
+set(gca, 'XScale', 'log')
+hold off
 % 
 % %% Figure 2
-% figure
-% hold on
-% plot(frequenciesSecondOrder, ...
-%     phaseSecondOrder(:,:));
-% plot(filteredPhaseDBSecondOrder(1,:), ...
-%     filteredPhaseDBSecondOrder(2,:), ...
-%     '.b')
-% plot(badFilteredPhaseDBSecondOrder(1,:), ...
-%     badFilteredPhaseDBSecondOrder(2,:), ...
-%     '.r')
-% set(gca, 'XScale', 'log')
-% hold off
-% 
-% figure
-% hold on
-% plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
-% plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
-% set(gca, 'XScale', 'log')
-% hold off
+figure
+hold on
+plot(frequenciesSecondOrder, ...
+    phaseSecondOrder(:,:));
+plot(filteredPhaseDBSecondOrder(1,:), ...
+    filteredPhaseDBSecondOrder(2,:), ...
+    '.b')
+plot(badFilteredPhaseDBSecondOrder(1,:), ...
+    badFilteredPhaseDBSecondOrder(2,:), ...
+    '.r')
+set(gca, 'XScale', 'log')
+set(gca, 'Title', "Hi")
+hold off
+
+figure
+hold on
+plot(frequenciesSecondOrder, phaseSecondOrder(:,:));
+plot(filteredPhaseDBSecondOrder(1,:), filteredPhaseDBSecondOrder(2,:), '.')
+set(gca, 'XScale', 'log')
+hold off
 % 
 disp("The 3dB cutoff maximum frequency is limited at a maximum slope of "...
     + maximumSlopeSecondOrder3dBLimit(1) + ". " + newline + ...
@@ -112,4 +113,9 @@ compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenomina
 [realNyquistCompass,imaginaryNyquistCompass,...
     frequencyNyquistCompass] = nyquist(compassFilterTransferFunction);
 rawNyquistCompass = table(realNyquistCompass(:,:).', imaginaryNyquistCompass(:,:).', frequencyNyquistCompass)
-writetable(rawNyquistCompass, "analytics/rawNyquistTableCompass.csv")
+% Nyquist Raw Data
+writetable(rawNyquistCompass, "analytics/derivations/rawNyquistTableCompass.csv")
+% Filtered Bode magnitude
+writematrix(filteredMagnitudeDBSecondOrder.', "analytics/derivations/filteredMagnitudeDBSecondOrder.csv")
+
+writematrix(badFilteredPhaseDBSecondOrder.', "analytics/derivations/badFilteredPhaseDBSecondOrder.csv")
