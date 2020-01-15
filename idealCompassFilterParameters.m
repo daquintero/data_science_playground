@@ -108,14 +108,14 @@ compassTimeConstant = 1/maxFrequencyFilteredMagnitudeDBSecondOrder; % Rad
 compassFilterNumerator = compassFilterGain;
 compassFilterDenominator = [compassTimeConstant 1];
 compassFilterTransferFunction = tf(compassFilterNumerator, compassFilterDenominator);
-% figure
-% bode(compassFilterTransferFunction)
-[realNyquistCompass,imaginaryNyquistCompass,...
-    frequencyNyquistCompass] = nyquist(compassFilterTransferFunction);
-rawNyquistCompass = table(realNyquistCompass(:,:).', imaginaryNyquistCompass(:,:).', frequencyNyquistCompass)
-% Nyquist Raw Data
-writetable(rawNyquistCompass, "analytics/derivations/rawNyquistTableCompass.csv")
-% Filtered Bode magnitude & Phase
-writematrix([filteredMagnitudeDBSecondOrder; filteredPhaseDBSecondOrder].', "analytics/derivations/filteredDBSecondOrder.csv")
-% Error Bode magnitude & Phase
-writematrix([badFilteredMagnitudeDBSecondOrder; badFilteredPhaseDBSecondOrder].', "analytics/derivations/badFilteredDBSecondOrder.csv")
+% % figure
+% % bode(compassFilterTransferFunction)
+% [realNyquistCompass,imaginaryNyquistCompass,...
+%     frequencyNyquistCompass] = nyquist(compassFilterTransferFunction);
+% rawNyquistCompass = table(realNyquistCompass(:,:).', imaginaryNyquistCompass(:,:).', frequencyNyquistCompass)
+% % Nyquist Raw Data
+% writetable(rawNyquistCompass, "analytics/derivations/rawNyquistTableCompass.csv")
+% % Filtered Bode magnitude & Phase
+% writematrix([filteredMagnitudeDBSecondOrder; filteredPhaseDBSecondOrder].', "analytics/derivations/filteredDBSecondOrder.csv")
+% % Error Bode magnitude & Phase
+% writematrix([badFilteredMagnitudeDBSecondOrder; badFilteredPhaseDBSecondOrder].', "analytics/derivations/badFilteredDBSecondOrder.csv")
