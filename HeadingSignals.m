@@ -69,6 +69,13 @@ classdef HeadingSignals < matlab.System
         
         function trueHeading = generateTrueHeading(obj, time)
             maximumTurnRate = 200;
+            % Long Chirp Period
+            longChirpStartFrequency = 0.001;
+            longChirpEndFrequency = 1;
+            longChirpPeriod = 150;
+            longChirpConstant = (longChirpEndFrequency - longChirpStartFrequency) / longChirpPeriod;
+            
+            % Short Chirp
             chirpStartFrequency = 0.001;
             chirpEndFrequency = 20;
             chirpPeriod = 25;
@@ -83,6 +90,7 @@ classdef HeadingSignals < matlab.System
             transition34EndTime = step3Time + 5; % 25
             step4Time = transition34EndTime + chirpPeriod; % 30
             step5Time = step4Time + 5;
+            step6Time = step5Time + longChirpPeriod;
             
             % State at those specific times
             step1State = 1;
@@ -93,6 +101,7 @@ classdef HeadingSignals < matlab.System
             step4State = -maximumTurnRate/4;
             transitionState34 = (time - step3Time - 10) * (step4State - step3State) / (transition34EndTime - step3Time);
             step5State = - maximumTurnRate/2;
+            variableState = step4State
             
             if time <= step1Time
                 trueHeading = step1State;
@@ -110,6 +119,16 @@ classdef HeadingSignals < matlab.System
                 trueHeading = step4State/4 * sin(((chirpConstant * (time-step4Time) ^ 2 / 2 +...
                    chirpStartFrequency *(time-step4Time)))) + step4State;
             elseif (time >= step4Time) && (time < step5Time)
+                trueHeading = step5State;
+            elseif (time >= step5Time) && (time < step6Time)
+                if (time < step5Time + 30)
+                    variableState = step4State + 3 * (time - step5Time);
+                elseif (time >= step5Time + 30) && (time <= step5Time + 3/4 * longChirpPeriod)
+                    variableState = variableState - 2 * (time - step5Time) + 200;
+                end
+                trueHeading = variableState/4 * sin(((2 * longChirpConstant * (time-longChirpPeriod) ^ 2 / 2 +...
+                   chirpStartFrequency *(time-step5Time)))) + variableState;
+            elseif (time >= step6Time + 20 ) && (time < step6Time + 40)
                 trueHeading = step5State;
             else
                 trueHeading = step4State;
