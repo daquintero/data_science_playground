@@ -7,7 +7,7 @@ run("./gyroControlParameters.m");
 testInput = "trueHeading";
 
 % Data save folder location
-saveFolderLocation = "analytics/cutoffVariations/standard_dataset/";
+saveFolderLocation = "analytics/cutoffVariations/standard_dataset_v1/";
 % Vary the cutoff frequencies over the attenuation range of the gyroFiler.
 varyingCutoffFrequencies = logspace(-2, 2, 100);
 
