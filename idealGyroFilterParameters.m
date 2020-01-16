@@ -3,6 +3,9 @@ firstOrderSystem = tf(firstOrderNumerator, firstOrderDenominator);
 firstOrderStep = step(firstOrderSystem);
 [magnitudeFirstOrder, phaseFirstOrder, frequenciesFirstOrder] = ...
     bode(firstOrderSystem, {10^-1, 10^4});
+rawBodeTableGyro = table(magnitudeFirstOrder(:,:).', phaseFirstOrder(:,:).',...
+    frequenciesFirstOrder)
+writetable(rawBodeTableGyro, "analytics/derivations/rawBodeTableGyro.csv")
 % figure % Figure only to check
 % step(firstOrderSystem);
 % bode(firstOrderSystem);
@@ -41,11 +44,15 @@ end
 % hold off
 
 %% Gyro Filter Denominator
-gyroCutoffFrequency = compassTimeConstant;
-gyroTimeConstant = compassTimeConstant;
+gyroCutoffFrequency = gyroTimeConstant;
+gyroTimeConstant = gyroTimeConstant;
 
 gyroFilterNumerator = [1 0];
 gyroFilterDenominator = [1 1/gyroTimeConstant];
 gyroFilterTransferFunction = tf(gyroFilterNumerator, gyroFilterDenominator);
 % figure
 % bode(gyroFilterTransferFunction)
+
+% figure
+% bode(gyroFilterTransferFunction)
+% Filtered Bode magnitude & Phase

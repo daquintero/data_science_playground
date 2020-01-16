@@ -81,11 +81,11 @@ classdef HeadingSignals < matlab.System
             % Time limits
             step1Time = 3;
             transition12EndTime = step1Time + 5; % 8
-            step2Time = transition12EndTime + 2; % 13
-            transition23EndTime = step2Time + 2; % 15
-            step3Time = transition23EndTime + 5; % 20
-            transition34EndTime = step3Time + 5; % 25
-            step4Time = transition34EndTime + chirpPeriod; % 30
+            step2Time = transition12EndTime + 2; % 10
+            transition23EndTime = step2Time + 2; % 12
+            step3Time = transition23EndTime + 5; % 17
+            transition34EndTime = step3Time + 5; % 22
+            step4Time = transition34EndTime + chirpPeriod; % 47
             step5Time = step4Time + 5;
             step6Time = step5Time + longChirpPeriod;
             
