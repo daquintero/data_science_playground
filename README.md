@@ -1,6 +1,6 @@
 # Overview
 
-I wanted to do a **Github-publishable** data science project to share my knowledge of Pandas and Python I use daily. I found the time to do it with this one for a semi-open ended coursework. In this project, I made an integrated-sensor system, and after many simulations (4GB of many CSV files), I wanted to find the system's optimal design parameters. I used Pandas for the Big-Data analysis, Matplotlib 3D to plot, and [MATLAB/Simulink](./data_generation_model/HeadingSystem.prj) (required) to create the system. See the report on how the data was analysed at the end.
+I wanted to do a **Github-publishable** data science project to share my knowledge of Pandas and Python. I found the time to do it during this open-ended coursework, so here it is! In this project, I made an integrated-sensor system, and after many simulations (4GB of CSV files), I wanted to find the system's optimal design parameters. I used Pandas for the Big-Data analysis, Matplotlib 3D to plot, and [MATLAB/Simulink](./data_generation_model/HeadingSystem.prj) (required) to model the system. See [this report](./report/report.pdf) on how the data was used, displayed and analysed.
 
 Skills demonstrated in [this project Jupyter lab](./analytics/dataRawAnalytics.ipynb):
 * Multi-dimensional data analytics and comprehension with Pandas MultiIndexes (3M+ data lines)
@@ -11,6 +11,8 @@ Skills demonstrated in [this project Jupyter lab](./analytics/dataRawAnalytics.i
 The [report analysing all the data with all figures is here](./report/report.pdf)
 
 Some nice figures:
+
+
 ![fullSystemErroCutoffVariations](./analytics/figures/fullSystemErrorCutoffFrequency.png)
 
 ![fullSystemTimeResponse](./analytics/figures/fullSystemCutoffFrequency.png)
