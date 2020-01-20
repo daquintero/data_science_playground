@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex} % Bibliography
+\usepackage{graphicx} % Figures
+\usepackage{gensymb} % Mathematical symbols.
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{minted} % Code formatting
+ 
+
+\title{Using Big Data time \& frequency domain analysis for optimal sensor fusion design}
+\author{Dario Antonio Quintero Dominguez}
+\date{\today}
+
+% Bibliography
+\bibliography{biblist.bib}
+
+\begin{document}
+\maketitle
+\input{abstract.tex}
+\input{heading_system.tex}
+\input{true_heading_modelling}
+\input{results_analysis.tex}
+\input{error_quanitification.tex}
+
+\printbibliography
+
+\appendix
+\input{appendix.tex}
+
+\end{document}
