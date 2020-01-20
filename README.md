@@ -8,7 +8,7 @@ Skills demonstrated in [this project Jupyter lab](./analytics/dataRawAnalytics.i
 * Some programmatic cleanup for imperfect input file names.
 * Data reshaping
 
-The [report analysing all the data with all figures is here](./report/report.pdf)
+The [report analysing all the data with all figures is here](./report/report.pdf). If you want to find out more about the modelling, I made a guide [here](./data_generation_model/README.md)
 
 Some nice figures:
 
